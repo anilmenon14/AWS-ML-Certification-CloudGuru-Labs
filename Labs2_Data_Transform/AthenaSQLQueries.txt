@@ -1,0 +1,29 @@
+/*Below are SQL's used in Athena, once Athena was connected to the destination directory of the FireHose Stream:*/
+
+/* How many are male vs female ? */
+With table1 as (
+  select gender,count(*) as num
+  from "sampledb"."awsrandomuserdb"
+  group by gender
+  )
+  select gender,
+  (0.0+num)*100/(sum (num) OVER ())
+  from table1;
+
+/* Median Age of random users */
+
+
+
+/*'Binning' into age group of 20,30,40 etc  */
+
+SELECT
+CASE
+   WHEN AGE <= 30 THEN '21-30'
+   WHEN AGE >= 31 AND AGE <=40 THEN '31-40'
+   WHEN AGE >= 41 AND AGE <=50 THEN '41-50'
+   WHEN AGE >= 51 AND AGE <=60 THEN '1-60'
+   WHEN AGE >= 61 AND AGE <=70 THEN '61-70'
+   WHEN AGE >= 71 AND AGE <=80 THEN '71-80'
+   WHEN AGE >= 81 THEN '>80'
+END as agebracket , *
+FROM "sampledb"."awsrandomuserdb";
