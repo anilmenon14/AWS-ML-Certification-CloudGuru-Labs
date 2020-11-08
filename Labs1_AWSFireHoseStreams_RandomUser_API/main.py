@@ -14,7 +14,7 @@ kinesisStreamClient = boto3.client('firehose')
 def apiCall(records):
     apiResponse = requests.get("https://randomuser.me/api/?results={}".format(records))
     userList = json.loads(apiResponse.text)['results'];
-    transformedList = []
+    jsonText = ""
     for user in userList:
         tempDict = {}
         if user['dob']['age'] >= 21:
@@ -24,12 +24,11 @@ def apiCall(records):
             tempDict["GENDER"] = user["gender"];
             tempDict["LATITUDE"] = user['location']['coordinates']['latitude'];
             tempDict["LONGITUDE"] = user['location']['coordinates']['longitude'];
-            transformedList.append(tempDict)
-    transformedListJson = json.dumps(transformedList)
+            jsonText = jsonText + json.dumps(tempDict) + "\n"
     response = kinesisStreamClient.put_record(
     DeliveryStreamName='randomuserstream',
     Record={
-        'Data': bytes(transformedListJson,encoding='utf-8')
+        'Data': bytes(jsonText,encoding='utf-8')
     }
     )
     print(response)
