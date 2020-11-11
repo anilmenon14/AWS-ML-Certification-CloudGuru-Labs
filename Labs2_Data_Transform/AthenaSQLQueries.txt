@@ -12,7 +12,15 @@ With table1 as (
 
 /* Median Age of random users */
 
+select (
+  CASE when count(*)%2 = 0
+     then (max(case when ntile=1 then age end) + min(case when ntile=2 then age end))/2.0
+     else max(case when ntile=1 then age end)
+  END)as median
 
+from (select age, ntile(2) over (order by age) as ntile
+from "sampledb"."awsrandomuserdb"
+order by age) as ntiled;
 
 /*'Binning' into age group of 20,30,40 etc  */
 
