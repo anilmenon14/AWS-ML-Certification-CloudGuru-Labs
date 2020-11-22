@@ -1,0 +1,21 @@
+1. Which month generates the most sales?
+
+    - Considering using line chart to show comparison month vs total car sales
+    - Is it going to be a composition since the data needs to be aggregated?
+
+2. Which car salesman sold the most cars?
+
+    - Consider using bar chart to show comparison between salesmen vs num of cars
+    - Is it going to be a composition since the data needs to be aggregated?
+
+3. Which dealership sold the most cars?
+
+    - Consider using bar chart to show comparison between dealership vs num of cars
+
+4. In what year was the average price of a Corvette greater than 100K?
+
+    - Line chart of years vs price, filtered for corvette
+
+5. Which car has several points in the box plot's far right upper quartile for the engine's horsepower ?
+
+    - Histogram of Horsepower (x-axis) vs Box Plot on y-axis
